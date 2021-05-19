@@ -32,8 +32,10 @@ class BGMask(torch.nn.Module):
 
 		# Step 1: identify background
 		# this is kinda voodoo, don't worry about it
+		singleton = False
 		with torch.no_grad():
 			if x.dim() == 3:
+				singleton = True
 				x = x.unsqueeze(0)
 			mask = (sum(self.masker(x)) / 7.0).squeeze() > 0.66
 			if mask.dim() == 2:
@@ -49,4 +51,7 @@ class BGMask(torch.nn.Module):
 			elif self.background == 'g':
 				new_bg = torch.ones_like(x) * 0.5
 		new_bg[mask] = x[mask]
+
+		if singleton: # some stupid hacky nonsense to make this work as a transform
+			return new_bg.squeeze(0)
 		return new_bg

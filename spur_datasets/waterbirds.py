@@ -14,7 +14,7 @@ import torchvision.transforms as transforms
 from torch.utils.data import Dataset, Subset, DataLoader
 import pytorch_lightning as pl
 
-DATASET_DIR = os.path.expanduser('~/datasets')
+DATASET_DIR = os.path.expanduser('~/datasets') # CHANGE THIS PER YOUR NEEDS
 
 # =================================================================
 # =           Torch Dataset Method                                =
